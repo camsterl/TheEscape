@@ -73,7 +73,10 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         lossesTextView = findViewById(R.id.lossesTextView);
 
         gestureDetector = new GestureDetector(this, this);
-
+        String win = Integer.toString(wins);
+        String lose = Integer.toString(losses);
+        winsTextView.setText(win);
+        lossesTextView.setText(lose);
         startNewGame();
     }
 
@@ -190,25 +193,44 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     {
         //TODO: Implement the handleWin() method by accomplishing the following:
         //TODO: Increment the wins
-        ++wins;
-        winsTextView.setText(wins);
+        wins = ++wins;
+        String win = Integer.toString(wins);
+        winsTextView.setText(win);
         //TODO: Set the imageView (at the zombie's row/col) to the R.drawable.bunny
         viewBoard[zombie.getRow()][zombie.getCol()].setImageResource(R.drawable.bunny);
-        viewBoard[EXIT_ROW][EXIT_ROW)].setImageResource(R.drawable.bunny);
+        viewBoard[EXIT_ROW][EXIT_ROW].setImageResource(R.drawable.bunny);
         //TODO: Start an animation
         //TODO: Wait 2 seconds, then start a new game
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // Actions to do after 10 seconds
+                startNewGame();
+            }
+        }, 2000);
+
+
     }
 
     private void handleLoss()
     {
         //TODO: Implement the handleLoss() method by accomplishing the following:
         //TODO: Increment the losses
-        losses++;
-        lossesTextView.setText(losses);
+        losses = ++losses;
+        String lose = Integer.toString(losses);
+        lossesTextView.setText(lose);
         //TODO: Set the imageView (at the player's row/col) to the R.drawable.blood
         viewBoard[player.getRow()][player.getCol()].setImageResource(R.drawable.blood);
         //TODO: Start an animation
         //TODO: Wait 2 seconds, then start a new game
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // Actions to do after 10 seconds
+                startNewGame();
+            }
+        }, 2000);
     }
 
 
